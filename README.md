@@ -1,4 +1,3 @@
-Log #1:
 +ESPCAM:
     -Giữ /stream để xem trực tiếp(CANCEL do việc không cùng mạng LAN)
     ->Giải quyết vấn đề không cùng mạng = cách post thẳng lên sv VM (test thi lấy ip local ip )
