@@ -5,9 +5,12 @@ Log #1:
 
 +NODE RED:
     -add flow xem ảnh cháy từ snapshot fire_result/ (link storage của firebase bucket qua)(Việc cần làm)
-    -UI stream các ảnh post qua mỗi 5s theo từng luồng (cấu trúc lại hức năng kh con là stream)(Việc cần làm)
-
+    -UI stream các ảnh post qua mỗi 5s theo từng luồng (cấu trúc lại hức năng kh con là stream)(Việc cần làm)    
+    LƯU Ý KHÔNG LƯU VỀ LOCAL!!!
 +Cân nhắc: không sử dụng stream thẳng từ cam lên SV hay UI của node red được vì:
     -Khác mạng và (việc sử dụng NAT sẽ dễ lỗi stream do firewal và tái kết nôi dẽ lỗi, espcam khdđủ điều kiện dùng giao thứuc webRTC hay RTSP)
     -Giới hạn cấu trúc và cấu hình để stream liên tục
-    -[Dự kiến] Thêm postgreSQL làm thành ứng dụng thương mại
+    -[Dự kiến] Thêm postgreSQL làm thành ứng dụng thương mại(trên node red maybe?)
+
++LOGIC giải quyết bài toán:
+    -CAM(post ảnh lên VM) -> SV(xử lý-DB & storage firebase) -> Node red (UI stream các ảnh đưọc post về) 
