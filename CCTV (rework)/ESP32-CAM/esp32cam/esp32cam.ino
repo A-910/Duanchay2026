@@ -91,9 +91,9 @@ void setup() {
   config.xclk_freq_hz = 20000000;
   config.pixel_format = PIXFORMAT_JPEG;
 
-  config.frame_size = FRAMESIZE_QVGA;
-  config.jpeg_quality = 10;
-  config.fb_count = 2;
+  config.frame_size = FRAMESIZE_QQVGA;
+  config.jpeg_quality = 20;
+  config.fb_count = 1;
 
   if (esp_camera_init(&config) != ESP_OK) {
     Serial.println("Camera init failed");
@@ -103,7 +103,7 @@ void setup() {
 
 void loop() {
 
-  if (millis() - lastSend > 5000) {
+  if (millis() - lastSend > 1000) {
     lastSend = millis();
     sendImageToServer();
   }
