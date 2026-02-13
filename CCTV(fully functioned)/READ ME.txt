@@ -13,6 +13,14 @@ Log #1:
     -[Dự kiến] Thêm postgreSQL làm thành ứng dụng thương mại
 LOG #2:
 +Cách test(Nhớ mở 1 tab database realtime và 1 tab storage ở browser)
+    -nạp lại camera với ip: http://34.172.179.231:8000/
+    -Khởi động VM và chạy docker với lệnh :docker run -d -p 8000:8000 --name cctv_app duanchay2026:v1 (để có thể ánh xạ port 8000)
+    -Check log của image và check sang database và storage
++UI Node red (Việc cần làm)
+
 
 LOG #3:
 +Lỗi dễ mắc phải khi deploy sv (khai báo firewall phần range nhớ ghi 0.0.0.0/0 chú không phải là 0.0.0.0 để mở kết nôi nhiều thiết bị)
++Chạy docker cần lưu ý phải có tiền tố -d -p để chạy ngầm và ánh xạ :
+# Chạy lại với cổng 8000
+docker run -d -p 8000:8000 --name cctv_app duanchay2026:v1
