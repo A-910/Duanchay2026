@@ -1,0 +1,9 @@
+fire_system/
+    cam1/
+        fire:
+        confidence:
+        last_image:
+    cam2/
+        fire:
+        confidence:
+        last_image:
