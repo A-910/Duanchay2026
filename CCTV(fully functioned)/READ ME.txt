@@ -13,4 +13,6 @@ Log #1:
     -[Dự kiến] Thêm postgreSQL làm thành ứng dụng thương mại
 LOG #2:
 +Cách test(Nhớ mở 1 tab database realtime và 1 tab storage ở browser)
-    -
+
+LOG #3:
++Lỗi dễ mắc phải khi deploy sv (khai báo firewall phần range nhớ ghi 0.0.0.0/0 chú không phải là 0.0.0.0 để mở kết nôi nhiều thiết bị)
