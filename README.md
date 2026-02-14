@@ -15,34 +15,33 @@
     - CAM (post ảnh lên VM) -> Server (xử lý-DB & storage firebase) -> Node red (UI stream các ảnh đưọc post về).
 
 + Sơ đồ hoạt động:
-                 ┌────────────────────┐
-                 │     ESP32-CAM      │
-                 │  - Chụp ảnh 1s/lần │
-                 │  - POST /detect    │
-                 └─────────┬──────────┘
-                           │ JPEG
-                           ▼
-                 ┌────────────────────┐
-                 │     Node-RED       │
-                 │  HTTP In (/detect) │
-                 │  - Nhận ảnh        │
-                 │  - Gửi AI server   │
-                 │  - Lưu file        │
-                 │  - Lưu database    │
-                 └─────────┬──────────┘
-                           │ JSON status
-                           ▼
-                 ┌────────────────────┐
-                 │   Python AI YOLO   │
-                 │  - best.pt model   │
-                 │  - Detect FIRE     │
-                 └─────────┬──────────┘
-                           │ status
-                           ▼
-                 ┌────────────────────┐
-                 │    Dashboard UI    │
-                 │  - Ảnh mới nhất    │
-                 │  - Status          │
-                 │  - Gauge           │
-                 │  - Lịch sử         │
-                 └────────────────────┘
+ ┌────────────────────┐
+ │     ESP32-CAM      │
+ │  - Chụp ảnh 1s/lần │
+ │  - POST /detect    │
+ └─────────┬──────────┘
+           │ JPEG
+           ▼
+ ┌────────────────────┐
+ │     Node-RED       │
+ │  HTTP In (/detect) │
+ │  - Nhận ảnh        │
+ │  - Lưu file        │
+ │  - Gửi AI server   │
+ └─────────┬──────────┘
+           │ JSON status
+           ▼
+ ┌────────────────────┐
+ │   Python AI YOLO   │
+ │  - best.pt model   │
+ │  - Detect FIRE     │
+ └─────────┬──────────┘
+           │ status
+           ▼
+ ┌────────────────────┐
+ │    Dashboard UI    │
+ │  - Ảnh mới nhất    │
+ │  - Status          │
+ │  - Gauge           │
+ │  - Lịch sử         │
+ └────────────────────┘
