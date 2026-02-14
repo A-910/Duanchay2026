@@ -10,10 +10,10 @@ from firebase_admin import credentials, db, storage
 
 FIRE_THRESHOLD = 0.6
 # Firebase init
-cred = credentials.Certificate("./serviceAccountKey.json") #tải trong  console rule của firebase nhé
+cred = credentials.Certificate("./serviceAccountKey.json") 
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://.firebaseio.com/',
-    'storageBucket': '.appspot.com'   #ÔNg điên giúp URL do tui kh truy ập đc do bx bị READ ME.txt out
+    'databaseURL': 'https://robloxshop-c65a7.firebaseio.com/',
+    'storageBucket': 'robloxshop-c65a7.firebasestorage.app'  
 })
 
 bucket = storage.bucket()
@@ -29,6 +29,8 @@ async def detect(request: Request):
     body = await request.body()
     nparr = np.frombuffer(body, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    if img is None:
+        return {"error": "Invalid image data"}
 
     results = model.predict(img, imgsz=416, conf=FIRE_THRESHOLD, verbose=False)
 
@@ -36,9 +38,13 @@ async def detect(request: Request):
 
     for r in results:
         for box in r.boxes:
-            detected = 1
-            x1, y1, x2, y2 = map(int, box.xyxy[0])
-            cv2.rectangle(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
+            cls = int(box.cls[0])
+            conf = float(box.conf[0])
+
+            if model.names[cls] == "fire" and conf >= FIRE_THRESHOLD:
+                detected = 1
+                x1, y1, x2, y2 = map(int, box.xyxy[0])
+                cv2.rectangle(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
 
     # Update Firebase
     ref = db.reference(f"fire_detection/{device_id}")

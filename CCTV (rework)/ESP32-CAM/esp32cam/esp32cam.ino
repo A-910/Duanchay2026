@@ -3,11 +3,10 @@
 #include <HTTPClient.h>
 
 #define DEVICE_ID "esp32_cam_01"
-#define SERVER_URL "http://192.168.1.97:1880/detect"
 // WIFI
 #define WIFI_SSID     "ACOM2"
 #define WIFI_PASSWORD "acomdaklak7772"
-//#define SERVER_URL "http://IP:5050/detect" //Thay = IP local IP nếu test
+#define SERVER_URL "http://IP:8000/detect" //Thay = IP local IP nếu test
 
 // Pins
 #define PWDN_GPIO_NUM     32
@@ -91,9 +90,9 @@ void setup() {
   config.xclk_freq_hz = 20000000;
   config.pixel_format = PIXFORMAT_JPEG;
 
-  config.frame_size = FRAMESIZE_QQVGA;
-  config.jpeg_quality = 20;
-  config.fb_count = 1;
+  config.frame_size = FRAMESIZE_QVGA;
+  config.jpeg_quality = 15;
+  config.fb_count = 2;
 
   if (esp_camera_init(&config) != ESP_OK) {
     Serial.println("Camera init failed");
