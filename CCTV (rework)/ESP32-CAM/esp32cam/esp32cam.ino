@@ -6,7 +6,7 @@
 // WIFI
 #define WIFI_SSID     "ACOM2"
 #define WIFI_PASSWORD "acomdaklak7772"
-#define SERVER_URL "http://IP:8000/detect" //Thay = IP local IP nếu test
+#define SERVER_URL "http://192.168.1.173:8000/detect" //Thay = IP local IP nếu test
 
 // Pins
 #define PWDN_GPIO_NUM     32

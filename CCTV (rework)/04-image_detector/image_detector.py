@@ -12,7 +12,7 @@ FIRE_THRESHOLD = 0.6
 # Firebase init
 cred = credentials.Certificate("./serviceAccountKey.json") 
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://robloxshop-c65a7.firebaseio.com/',
+    'databaseURL': 'https://robloxshop-c65a7-default-rtdb.asia-southeast1.firebasedatabase.app',
     'storageBucket': 'robloxshop-c65a7.firebasestorage.app'  
 })
 
@@ -64,6 +64,7 @@ async def detect(request: Request):
 
         blob = bucket.blob(f"fire_snapshots/{device_id}/{timestamp}.jpg")
         blob.upload_from_filename(filename)
+
 
         print(f" Fire detected from {device_id}")
 
