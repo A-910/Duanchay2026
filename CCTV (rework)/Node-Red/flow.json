@@ -1,0 +1,468 @@
+[
+    {
+        "id": "b3ee5a1e724adfb5",
+        "type": "tab",
+        "label": "AI FIRE DASHBOARD",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ec53d2adde8aca30",
+        "type": "inject",
+        "z": "b3ee5a1e724adfb5",
+        "name": "Refresh CAM 1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "34f8024fa8d821de"
+            ]
+        ]
+    },
+    {
+        "id": "a4fc099ada744196",
+        "type": "inject",
+        "z": "b3ee5a1e724adfb5",
+        "name": "Refresh CAM 2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "067498a16628fa24"
+            ]
+        ]
+    },
+    {
+        "id": "34f8024fa8d821de",
+        "type": "http request",
+        "z": "b3ee5a1e724adfb5",
+        "name": "Get Firebase CAM 1",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://robloxshop-c65a7-default-rtdb.asia-southeast1.firebasedatabase.app/fire_detection/esp32_cam_01.json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "8b7f3a61d21a6872"
+            ]
+        ]
+    },
+    {
+        "id": "067498a16628fa24",
+        "type": "http request",
+        "z": "b3ee5a1e724adfb5",
+        "name": "Get Firebase CAM 2",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://robloxshop-c65a7-default-rtdb.asia-southeast1.firebasedatabase.app/fire_detection/esp32_cam_02.json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "0524d8f95c018acb"
+            ]
+        ]
+    },
+    {
+        "id": "8b7f3a61d21a6872",
+        "type": "function",
+        "z": "b3ee5a1e724adfb5",
+        "name": "Process CAM 1",
+        "func": "if(!msg.payload)return null;\nlet fire=Number(msg.payload.result)===1?1:0;\nlet time=msg.payload.timestamp||\"N/A\";\nreturn[\n{payload:fire?\"🔥 FIRE DETECTED\":\"✅ SAFE\"},\n{payload:fire===1},\n{payload:fire},\n{payload:time},\n{payload:fire}\n];",
+        "outputs": 5,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 80,
+        "wires": [
+            [
+                "a6c032361793be48"
+            ],
+            [
+                "91fe1663ac71a47b"
+            ],
+            [
+                "ec7b0fd82b6c7561"
+            ],
+            [
+                "447cfb755e6b02c0"
+            ],
+            [
+                "fcc8510452ef1284"
+            ]
+        ]
+    },
+    {
+        "id": "0524d8f95c018acb",
+        "type": "function",
+        "z": "b3ee5a1e724adfb5",
+        "name": "Process CAM 2",
+        "func": "if(!msg.payload)return null;\nlet fire=Number(msg.payload.result)===1?1:0;\nlet time=msg.payload.timestamp||\"N/A\";\nreturn[\n{payload:fire?\"🔥 FIRE DETECTED\":\"✅ SAFE\"},\n{payload:fire===1},\n{payload:fire},\n{payload:time},\n{payload:fire}\n];",
+        "outputs": 5,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 320,
+        "wires": [
+            [
+                "ac7952313802343f"
+            ],
+            [
+                "be41d490527a2456"
+            ],
+            [
+                "145ee26c358b6c56"
+            ],
+            [
+                "62ca31b22f3cc269"
+            ],
+            [
+                "f5a7257fed793f6a"
+            ]
+        ]
+    },
+    {
+        "id": "a6c032361793be48",
+        "type": "ui_text",
+        "z": "b3ee5a1e724adfb5",
+        "group": "group_cam1",
+        "width": "",
+        "height": "",
+        "name": "",
+        "label": "Status:",
+        "format": "{{msg.payload}}",
+        "layout": "",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 840,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "91fe1663ac71a47b",
+        "type": "ui_led",
+        "z": "b3ee5a1e724adfb5",
+        "group": "group_cam1",
+        "width": "",
+        "height": "",
+        "label": "Alert:",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#00ff00",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 830,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ec7b0fd82b6c7561",
+        "type": "ui_chart",
+        "z": "b3ee5a1e724adfb5",
+        "name": "",
+        "group": "group_cam1",
+        "width": "",
+        "height": "",
+        "label": "Fire Chart:",
+        "chartType": "bar",
+        "xformat": "HH:mm:ss",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": "",
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 850,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "447cfb755e6b02c0",
+        "type": "ui_text",
+        "z": "b3ee5a1e724adfb5",
+        "group": "group_cam1",
+        "width": "",
+        "height": "",
+        "name": "",
+        "label": "Last Detection:",
+        "format": "{{msg.payload}}",
+        "layout": "",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 860,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "fcc8510452ef1284",
+        "type": "ui_template",
+        "z": "b3ee5a1e724adfb5",
+        "group": "group_cam1",
+        "name": "CAM 1",
+        "width": "0",
+        "height": "0",
+        "format": "<style>\n    @keyframes blink {\n        0% {\n            box-shadow: 0 0 10px red;\n        }\n\n        50% {\n            box-shadow: 0 0 30px red;\n        }\n\n        100% {\n            box-shadow: 0 0 10px red;\n        }\n    }\n</style>\n<div style='text-align:center'>\n    <img id='cam1' style='width:100%;border-radius:12px;'>\n</div>\n<script>\n    (function(scope){\n        function load()\n{\n    var i=document.getElementById('cam1');\n     i.src='https://firebasestorage.googleapis.com/v0/b/robloxshop-c65a7.firebasestorage.app/o/esp32_cam_01%2Flatest.jpg?alt=media&t='+new Date().getTime();\n     setTimeout(load,2000);\n}    \n     load();\n     scope.$watch('msg',function(msg)\n{\n     var i=document.getElementById('cam1');\n     if(msg&&msg.payload==1)\n    {\n        i.style.animation='blink 1s infinite';\n    }\n        else{i.style.animation='none';i.style.boxShadow='0 0 15px green';}\n});\n})\n     (scope);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 830,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ac7952313802343f",
+        "type": "ui_text",
+        "z": "b3ee5a1e724adfb5",
+        "group": "group_cam2",
+        "width": "",
+        "height": "",
+        "name": "",
+        "label": "Status:",
+        "format": "{{msg.payload}}",
+        "layout": "",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 840,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "be41d490527a2456",
+        "type": "ui_led",
+        "z": "b3ee5a1e724adfb5",
+        "group": "group_cam2",
+        "width": "",
+        "height": "",
+        "label": "Alert:",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#00ff00",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 830,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "145ee26c358b6c56",
+        "type": "ui_chart",
+        "z": "b3ee5a1e724adfb5",
+        "name": "",
+        "group": "group_cam2",
+        "width": "",
+        "height": "",
+        "label": "Fire Chart:",
+        "chartType": "bar",
+        "xformat": "HH:mm:ss",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": "",
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 850,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "62ca31b22f3cc269",
+        "type": "ui_text",
+        "z": "b3ee5a1e724adfb5",
+        "group": "group_cam2",
+        "width": "",
+        "height": "",
+        "name": "",
+        "label": "Last Detection:",
+        "format": "{{msg.payload}}",
+        "layout": "",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 860,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f5a7257fed793f6a",
+        "type": "ui_template",
+        "z": "b3ee5a1e724adfb5",
+        "group": "group_cam2",
+        "name": "CAM 2",
+        "width": "",
+        "height": "",
+        "format": "<style>@keyframes blink2{0%{box-shadow:0 0 10px red;}50%{box-shadow:0 0 30px red;}100%{box-shadow:0 0 10px red;}}</style><div style='text-align:center'><img id='cam2' style='width:100%;border-radius:12px;'></div><script>(function(scope){function load(){var i=document.getElementById('cam2');i.src='https://firebasestorage.googleapis.com/v0/b/robloxshop-c65a7.firebasestorage.app/o/esp32_cam_02%2Flatest.jpg?alt=media&t='+new Date().getTime();setTimeout(load,2000);}load();scope.$watch('msg',function(msg){var i=document.getElementById('cam2');if(msg&&msg.payload==1){i.style.animation='blink2 1s infinite';}else{i.style.animation='none';i.style.boxShadow='0 0 15px green';}});})(scope);</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 830,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "group_cam1",
+        "type": "ui_group",
+        "name": "CAMERA 1",
+        "tab": "tab_dashboard",
+        "order": 1,
+        "width": "6"
+    },
+    {
+        "id": "group_cam2",
+        "type": "ui_group",
+        "name": "CAMERA 2",
+        "tab": "tab_dashboard",
+        "order": 2,
+        "width": "6"
+    },
+    {
+        "id": "tab_dashboard",
+        "type": "ui_tab",
+        "name": "🔥 AI FIRE SYSTEM",
+        "icon": "dashboard"
+    },
+    {
+        "id": "df1f72a11593728d",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6",
+            "node-red-contrib-ui-led": "0.4.11"
+        }
+    }
+]

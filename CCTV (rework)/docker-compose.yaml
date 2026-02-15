@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  nodered:
+    image: nodered/node-red:latest
+    container_name: fire-nodered
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./data:/data
+    restart: always
+
+  firebase-listener:
+    image: node:18
+    container_name: fire-firebase
+    working_dir: /app
+    volumes:
+      - ./firebase:/app
+    command: node index.js
+    restart: always
