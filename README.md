@@ -23,15 +23,6 @@
            │ JPEG
            ▼
  ┌────────────────────┐
- │     Node-RED       │
- │  HTTP In (/detect) │
- │  - Nhận ảnh        │
- │  - Lưu file        │
- │  - Gửi AI server   │
- └─────────┬──────────┘
-           │ JSON status
-           ▼
- ┌────────────────────┐
  │   Python AI YOLO   │
  │  - best.pt model   │
  │  - Detect FIRE     │
@@ -39,9 +30,17 @@
            │ status
            ▼
  ┌────────────────────┐
+ │     Node-RED       │
+ │  HTTP In (/detect) │
+ │  - Nhận ảnh        │
+ │  - Checking        │
+ └─────────┬──────────┘
+           │ 
+           ▼
+ ┌────────────────────┐
  │    Dashboard UI    │
- │  - Ảnh mới nhất    │
  │  - Status          │
+ │  - Alert           │
  │  - Gauge           │
- │  - Lịch sử         │
+ │  - Last Detection  │
  └────────────────────┘
